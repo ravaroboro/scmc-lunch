@@ -127,8 +127,10 @@
 
   <section class="rsvp" id="rsvp">
     <div class="card">
-      <h2>Join us!</h2>
-      <p class="hosts">Hosted by South Carolina Manufacturers &amp; Commerce and Roboro</p>
+      <div id="rsvp-intro">
+        <h2>Join us!</h2>
+        <p class="hosts">Hosted by South Carolina Manufacturers &amp; Commerce and Roboro</p>
+      </div>
 
       <form id="rsvp-form" novalidate>
         <div><label for="first">First Name <span class="req">*</span></label><input id="first" name="first_name" type="text" autocomplete="given-name" required></div>
@@ -208,6 +210,7 @@
       const json = await res.json().catch(() => ({}));
       if (!res.ok || String(json.success) === 'false') throw new Error(json.message || 'Request failed');
       form.style.display = 'none';
+      document.getElementById('rsvp-intro').style.display = 'none';
       document.getElementById('thanks').classList.add('show');
     } catch (err) {
       errorEl.textContent = "Sorry, something went wrong sending your RSVP. Please try again or email paul@roboro.ai.";
