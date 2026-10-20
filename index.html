@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SCMC × Roboro Social</title>
+<title>Postponed: SCMC × Roboro Lunch</title>
 <meta name="description" content="Join South Carolina Manufacturers & Commerce and Roboro for a gathering with partners ahead of the 2027 legislative session.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,6 +96,11 @@
     .card { padding: 32px 16px 36px; }
     form { grid-template-columns: 1fr; }
   }
+  .postponed { max-width: 640px; margin: 8px 0 56px; padding: 20px 24px; border-radius: 12px; background: rgba(230,0,88,.06); border: 1px solid rgba(230,0,88,.2); font-size: 17px; line-height: 1.6; }
+  .postponed p { margin: 0 0 8px; }
+  .postponed p:last-child { margin: 0; }
+  .postponed a { color: var(--pink); }
+  .postponed-tag { font-size: 13px !important; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--pink); }
 </style>
 </head>
 <body>
@@ -111,113 +116,19 @@
     <h1>A Seat at the Table for 2027</h1>
     <p class="sub">A government affairs lunch ahead of pre-filing and session.</p>
 
-    <div class="meta">
-      <div class="meta-row">
-        <span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
-        <span>WED, OCT. 21, 2026 &nbsp;|&nbsp; 12:30 PM</span>
-      </div>
-      <div class="meta-row">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=1301+Gervais+Street+Suite+1100+Columbia+SC+29201" target="_blank" rel="noopener">1301 Gervais Street, Suite 1100, Columbia, SC</a>
-      </div>
+    <div class="postponed">
+      <p class="postponed-tag">Event postponed</p>
+      <p>This lunch has been postponed. A new date is coming soon, and we'll share the details as soon as it's set.</p>
+      <p>Questions? Email <a href="mailto:paul@roboro.ai">paul@roboro.ai</a>.</p>
     </div>
-
-    <p class="lede">Join SCMC and Roboro for lunch and conversation with peer government affairs professionals and experts before session convenes. Plus, a look at how local teams are supercharging their government affairs and advocacy strategy heading into 2027.</p>
   </div>
 
-  <section class="rsvp" id="rsvp">
-    <div class="card">
-      <div id="rsvp-intro">
-        <h2>Join us!</h2>
-        <p class="hosts">Hosted by South Carolina Manufacturers &amp; Commerce and Roboro</p>
-      </div>
-
-      <form id="rsvp-form" novalidate>
-        <div><label for="first">First Name <span class="req">*</span></label><input id="first" name="first_name" type="text" autocomplete="given-name" required></div>
-        <div><label for="last">Last Name <span class="req">*</span></label><input id="last" name="last_name" type="text" autocomplete="family-name" required></div>
-        <div class="full"><label for="org">Company/Organization <span class="req">*</span></label><input id="org" name="organization" type="text" autocomplete="organization" required></div>
-        <div class="full"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" autocomplete="email" required></div>
-        <div class="full">
-          <label for="attending">Will you join us?</label>
-          <select id="attending" name="attending">
-            <option value="">Select…</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
-        <div class="full"><label for="notes">Anything we should know?</label><textarea id="notes" name="notes"></textarea></div>
-        <label class="check full"><input type="checkbox" id="has-guest" name="bringing_guest"> Are you bringing a guest?</label>
-        <div class="guest full" id="guest-fields" style="grid-template-columns:1fr 1fr;gap:12px">
-          <div><label for="guest-name">Guest Name</label><input id="guest-name" name="guest_name" type="text"></div>
-          <div><label for="guest-org">Guest Organization</label><input id="guest-org" name="guest_organization" type="text"></div>
-        </div>
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-        <button class="full" type="submit" id="rsvp-btn">RSVP to the Social</button>
-        <p class="form-error full" id="form-error" role="alert"></p>
-      </form>
-      <div class="thanks" id="thanks" role="status">
-        <h2>Thank you!</h2>
-        <p>Your RSVP is in. We look forward to seeing you before session.</p>
-      </div>
-    </div>
-
+  <section class="rsvp">
     <footer>
       <div>© 2026 Roboro. All rights reserved.</div>
     </footer>
   </section>
 </main>
 
-<script>
-  const form = document.getElementById('rsvp-form');
-  const guestToggle = document.getElementById('has-guest');
-  guestToggle.addEventListener('change', () => {
-    document.getElementById('guest-fields').classList.toggle('show', guestToggle.checked);
-  });
-  // RSVPs are emailed via FormSubmit (formsubmit.co). The first submission triggers
-  // a one-time activation email to this address; RSVPs arrive after it's confirmed.
-  const RSVP_ENDPOINT = 'https://formsubmit.co/ajax/paul@roboro.ai';
-  const btn = document.getElementById('rsvp-btn');
-  const errorEl = document.getElementById('form-error');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    errorEl.textContent = '';
-    const required = [...form.querySelectorAll('[required]')];
-    const firstBad = required.find(el => !el.value.trim() || (el.type === 'email' && !el.checkValidity()));
-    if (firstBad) { firstBad.focus(); firstBad.reportValidity?.(); return; }
-
-    const data = Object.fromEntries(new FormData(form));
-    if (data._honey) return;
-    delete data._honey;
-    data.bringing_guest = guestToggle.checked ? 'Yes' : 'No';
-    if (!guestToggle.checked) { delete data.guest_name; delete data.guest_organization; }
-    const payload = {
-      _subject: `RSVP: ${data.first_name} ${data.last_name} (${data.organization}) – SCMC × Roboro Lunch`,
-      _replyto: data.email,
-      _template: 'table',
-      _captcha: 'false',
-      ...data,
-    };
-
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    try {
-      const res = await fetch(RSVP_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || String(json.success) === 'false') throw new Error(json.message || 'Request failed');
-      form.style.display = 'none';
-      document.getElementById('rsvp-intro').style.display = 'none';
-      document.getElementById('thanks').classList.add('show');
-    } catch (err) {
-      errorEl.textContent = "Sorry, something went wrong sending your RSVP. Please try again or email paul@roboro.ai.";
-      btn.disabled = false;
-      btn.textContent = 'RSVP to the Social';
-    }
-  });
-</script>
 </body>
 </html>
